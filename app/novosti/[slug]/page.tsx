@@ -23,8 +23,16 @@ export default async function NovostPage({ params }: Props) {
       <main className="min-h-screen" style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}>
 
         {/* ── Hero header ── */}
-        <div className="bg-zinc-950 pb-16 pt-36">
-          <div className="mx-auto max-w-4xl px-6 lg:px-16">
+        <div
+          className="relative pb-16 pt-36"
+          style={{
+            backgroundImage: "url('/clinic-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-zinc-950/75" />
+          <div className="relative mx-auto max-w-4xl px-6 lg:px-16">
             <time className="mb-4 block text-[10px] font-medium uppercase tracking-[0.35em] text-[#f37021]">
               {formatDate(post.date)}
             </time>
@@ -37,6 +45,7 @@ export default async function NovostPage({ params }: Props) {
             <div className="mt-6 h-0.5 w-16 bg-[#f37021]" />
           </div>
         </div>
+
 
         {/* ── Content ── */}
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-16">

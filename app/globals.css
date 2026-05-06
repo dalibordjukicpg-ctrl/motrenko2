@@ -61,6 +61,7 @@ section, footer, header, main {
   will-change: transform;
 }
 
+
 /* ─── Scroll fade-in ─────────────────────────────────────────── */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(28px); }

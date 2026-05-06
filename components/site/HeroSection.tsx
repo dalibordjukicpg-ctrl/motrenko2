@@ -25,6 +25,7 @@ export function HeroSection() {
   const [leaving, setLeaving] = useState(false);
   const bgRef        = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLElement>(null);
+  const videoRef     = useRef<HTMLVideoElement>(null);
 
   /* auto-advance */
   useEffect(() => {
@@ -36,6 +37,18 @@ export function HeroSection() {
       }, 600);
     }, 6000);
     return () => clearInterval(id);
+  }, []);
+
+  /* zoom after video ends */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onEnded = () => {
+      video.style.transition = "transform 8s ease-out";
+      video.style.transform  = "scale(1.08)";
+    };
+    video.addEventListener("ended", onEnded);
+    return () => video.removeEventListener("ended", onEnded);
   }, []);
 
   /* parallax */
@@ -66,9 +79,9 @@ export function HeroSection() {
         aria-hidden
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           poster="/hero-bg.png"
           className="absolute inset-0 h-full w-full object-cover object-center"
