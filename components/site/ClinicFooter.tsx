@@ -9,15 +9,20 @@ const NAV = [
 ];
 
 const CONTACT = [
-  { icon: <Phone size={14} />, text: "+387 00 000 000",       href: "tel:+38700000000"         },
-  { icon: <Mail  size={14} />, text: "info@hrc-budva.me",     href: "mailto:info@hrc-budva.me" },
-  { icon: <MapPin size={14} />, text: "Mediteranska 1, Budva", href: undefined                  },
+  { icon: <Phone size={14} />, text: "033 402 432",            href: "tel:+38233402432"         },
+  { icon: <Phone size={14} />, text: "067 052 052",            href: "tel:+38267052052"         },
+  { icon: <Mail  size={14} />, text: "info@humanareprodukcija.com", href: "mailto:info@humanareprodukcija.com" },
+  { icon: <MapPin size={14} />, text: "bb XVI Ulica, Budva 85310", href: "https://maps.app.goo.gl/XRLPBsA1YMM4vaX38" },
 ];
 
 const HOURS = [
-  { day: "Pon – Pet", time: "07:00 – 20:00" },
-  { day: "Subota",    time: "08:00 – 14:00" },
-  { day: "Nedjelja",  time: "Zatvoreno"      },
+  { day: "Ponedjeljak", time: "08:00 – 20:00" },
+  { day: "Utorak",      time: "06:30 – 20:00" },
+  { day: "Srijeda",     time: "08:00 – 20:00" },
+  { day: "Četvrtak",    time: "08:00 – 20:00" },
+  { day: "Petak",       time: "08:00 – 20:00" },
+  { day: "Subota",      time: "Zatvoreno"      },
+  { day: "Nedjelja",    time: "Zatvoreno"      },
 ];
 
 const SOCIAL = [
