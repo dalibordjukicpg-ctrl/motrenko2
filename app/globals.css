@@ -1,0 +1,252 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Design tokens ─────────────────────────────────────────── */
+:root {
+  --background: #fdfcfb;
+  --foreground: #1a1a18;
+  --color-brand: #f37021;
+  --color-off-white: #f8f6f3;
+  --font-sans: var(--font-lora), Georgia, serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
+
+@theme inline {
+  --color-background:  var(--background);
+  --color-foreground:  var(--foreground);
+  --color-brand:       #f37021;
+  --font-sans:         var(--font-lora), Georgia, serif;
+  --font-serif:        var(--font-playfair), Georgia, serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* kompenzacija za fixed navbar */
+}
+
+body {
+  background-color: #fdfaf7;
+  background-image:
+    linear-gradient(160deg, #fff9f5 0%, #fdf6f0 40%, #f8f0e8 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Sve sekcije poravnate na lijevu ivicu bez overflow-a */
+section, footer, header, main {
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* ─── Hero floating animation ────────────────────────────────── */
+@keyframes hero-float {
+  0%   { transform: scale(1.08) translate(0px,    0px); }
+  25%  { transform: scale(1.11) translate(-8px,  -10px); }
+  50%  { transform: scale(1.09) translate( 6px,  -18px); }
+  75%  { transform: scale(1.12) translate(-4px,   -8px); }
+  100% { transform: scale(1.08) translate(0px,    0px); }
+}
+
+.hero-float {
+  animation: hero-float 14s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ─── Scroll fade-in ─────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+}
+
+.fade-in.is-visible {
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* stagger helpers */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ─── WordPress page content ─────────────────────────────── */
+
+/* H1/H2/H3/H4 — svi naslovi narandžasti */
+.wp-content h1,
+.wp-content h2,
+.wp-content h3 {
+  font-family: var(--font-playfair), Georgia, serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #f37021 !important;
+}
+
+.wp-content h2 {
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid #f4e8df;
+}
+
+.wp-content h3 {
+  font-size: clamp(1.25rem, 2vw, 1.85rem);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.wp-content h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* H4 */
+.wp-content h4 {
+  font-family: var(--font-raleway), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #18181b;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraf */
+.wp-content p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #3f3f46;
+  margin-bottom: 1.4rem;
+}
+
+/* Prvi paragraf — malo veći */
+.wp-content > p:first-of-type {
+  font-size: 1.08rem;
+  color: #27272a;
+  line-height: 1.95;
+}
+
+/* Liste */
+.wp-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+  color: #3f3f46;
+}
+.wp-content ul li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+}
+.wp-content ul li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f37021;
+  margin-top: 0.5rem;
+}
+.wp-content ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #3f3f46;
+  counter-reset: ol-counter;
+  list-style: none;
+}
+.wp-content ol li {
+  counter-increment: ol-counter;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+.wp-content ol li::before {
+  content: counter(ol-counter) ".";
+  color: #f37021;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+/* Strong */
+.wp-content strong { color: #18181b; font-weight: 600; }
+
+/* Linkovi */
+.wp-content a { color: #f37021; text-decoration: none; border-bottom: 1px solid #f37021/30; }
+.wp-content a:hover { border-bottom-color: #f37021; }
+
+/* Divider */
+.wp-content hr {
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  margin: 3rem 0;
+}
+
+/* Blockquote */
+.wp-content blockquote {
+  position: relative;
+  border-left: 3px solid #f37021;
+  background: #fffaf7;
+  padding: 1.25rem 1.5rem;
+  margin: 2.5rem 0;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: #52525b;
+}
+
+/* Slike */
+.wp-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* Tabele */
+.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.88rem;
+  border: 1px solid #f4f4f5;
+}
+.wp-content th {
+  background: #f37021;
+  color: white;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.wp-content td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #f4f4f5;
+  color: #52525b;
+  vertical-align: top;
+}
+.wp-content tr:hover td { background: #fffaf7; }
+
+/* Prazni paragrafi koje WP generiše */
+.wp-content p:empty { display: none; }
