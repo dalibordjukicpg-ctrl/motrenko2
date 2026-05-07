@@ -1,10 +1,22 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { ClinicNavbar } from "@/components/site/ClinicNavbar";
-import { decodeTitle, getMenu, getPageBySlug, slugify } from "@/lib/wordpress";
+import { pageMetadata } from "@/lib/seo";
+import { decodeTitle, getMenu, getPageBySlug, slugify, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const page = await getPageBySlug(slug).catch(() => null);
+  if (!page) return { title: "Stranica nije pronađena" };
+  return pageMetadata({
+    title: decodeTitle(page.title.rendered),
+    description: stripHtml(page.excerpt.rendered).slice(0, 160) || undefined,
+    path: `/stranica/${slug}`,
+  });
+}
 
 export default async function StranicaPage({ params }: Props) {
   const { slug } = await params;

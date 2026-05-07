@@ -1,6 +1,7 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { ClinicNavbar } from "@/components/site/ClinicNavbar";
-import { decodeTitle, getPostBySlug } from "@/lib/wordpress";
+import { JsonLd, articleJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
+import { decodeTitle, getPostBySlug, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -12,13 +13,36 @@ function formatDate(iso: string): string {
   });
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug).catch(() => null);
+  if (!post) return { title: "Novost nije pronađena" };
+  const title = decodeTitle(post.title.rendered);
+  const description = stripHtml(post.excerpt.rendered).slice(0, 160);
+  return pageMetadata({
+    title,
+    description,
+    path: `/novosti/${slug}`,
+    type: "article",
+    publishedTime: post.date,
+  });
+}
+
 export default async function NovostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug).catch(() => null);
   if (!post) notFound();
 
+  const articleSchema = articleJsonLd({
+    headline: decodeTitle(post.title.rendered),
+    description: stripHtml(post.excerpt.rendered).slice(0, 200),
+    url: `${SITE_URL}/novosti/${slug}`,
+    datePublished: post.date,
+  });
+
   return (
     <>
+      <JsonLd data={articleSchema} />
       <ClinicNavbar />
       <main className="min-h-screen" style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}>
 

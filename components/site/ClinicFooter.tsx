@@ -3,9 +3,10 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 const NAV = [
   { label: "Usluge",   href: "/#services" },
+  { label: "Naš tim",  href: "/#team"     },
   { label: "O nama",   href: "/#about"    },
   { label: "Blog",     href: "/#blog"     },
-  { label: "Kontakt",  href: "#contact"   },
+  { label: "Kontakt",  href: "/kontakt"   },
 ];
 
 const CONTACT = [
@@ -33,7 +34,7 @@ const SOCIAL = [
 
 export function ClinicFooter() {
   return (
-    <footer id="contact" className="bg-[#06080f]">
+    <footer id="contact" className="bg-[#1a1208]">
 
       {/* ── Gornja narandžasta linija ── */}
       <div className="h-[2px] bg-gradient-to-r from-transparent via-[#f37021] to-transparent opacity-40" />
@@ -167,11 +168,12 @@ export function ClinicFooter() {
           <p>&copy; {new Date().getFullYear()} Human Reproduction Center Budva. Sva prava zadržana.</p>
           <p className="mt-1 text-zinc-500">Crafted by <span className="text-[#f37021] font-medium">Computer Doctor</span> Podgorica</p>
           <div className="flex gap-6">
-            {["Politika privatnosti", "Uslovi korišćenja"].map((l) => (
-              <a key={l} href="#" className="transition-colors hover:text-zinc-400">
-                {l}
-              </a>
-            ))}
+            <a href="/politika-privatnosti" className="transition-colors hover:text-zinc-400">
+              Politika privatnosti
+            </a>
+            <a href="/uslovi-koriscenja" className="transition-colors hover:text-zinc-400">
+              Uslovi korišćenja
+            </a>
           </div>
         </div>
 

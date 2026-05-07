@@ -105,8 +105,9 @@ export function ClinicNavbar() {
           ) : (
             <a href="#about" className={linkCls}>O nama</a>
           )}
+          <Link href="/#team" className={linkCls}>Naš tim</Link>
           <a href="#blog"    className={linkCls}>Blog</a>
-          <a href="#contact" className={linkCls}>Kontakt</a>
+          <Link href="/kontakt" className={linkCls}>Kontakt</Link>
         </div>
 
         {/* CTA + hamburger */}
@@ -251,14 +252,18 @@ export function ClinicNavbar() {
             </a>
           )}
 
+          <Link href="/#team" onClick={() => setMobileOpen(false)}
+            className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+            Naš tim
+          </Link>
           <a href="#blog" onClick={() => setMobileOpen(false)}
             className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
             Blog
           </a>
-          <a href="#contact" onClick={() => setMobileOpen(false)}
+          <Link href="/kontakt" onClick={() => setMobileOpen(false)}
             className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
             Kontakt
-          </a>
+          </Link>
 
           <div className="px-6 pt-3">
             <a href="#book" onClick={() => setMobileOpen(false)}

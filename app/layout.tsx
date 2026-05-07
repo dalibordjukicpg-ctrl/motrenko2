@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, Playfair_Display } from "next/font/google";
 import { ScrollToTop } from "@/components/site/ScrollToTop";
+import { JsonLd, SITE_NAME, SITE_URL, clinicJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const lora = Lora({
@@ -20,9 +21,32 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Human Reproduction Center | Budva",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Centar za humanu reprodukciju`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    "Posvećeni vašem zdravlju uz najsavremeniju medicinsku njegu i individualizovani pristup.",
+    "Vodeći centar za humanu reprodukciju u Crnoj Gori. Najsavremenija reproduktivna medicina, IVF, krioprezervacija i individualizovan pristup svakom paru.",
+  keywords: [
+    "humana reprodukcija",
+    "IVF",
+    "vantjelesna oplodnja",
+    "Budva",
+    "Crna Gora",
+    "ginekologija",
+    "reproduktivna medicina",
+    "Motrenko",
+  ],
+  authors: [{ name: SITE_NAME }],
+  openGraph: {
+    type: "website",
+    locale: "sr_Latn",
+    siteName: SITE_NAME,
+    url: SITE_URL,
+  },
+  robots: { index: true, follow: true },
+  icons: { icon: "/logo-t2.png", apple: "/logo-t2.png" },
 };
 
 export default function RootLayout({
@@ -38,6 +62,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-zinc-900">
         {children}
         <ScrollToTop />
+        <JsonLd data={clinicJsonLd} />
       </body>
     </html>
   );

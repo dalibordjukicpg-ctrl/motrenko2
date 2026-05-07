@@ -6,16 +6,18 @@ import { NewsSection }     from "@/components/site/NewsSection";
 import { ServicesSection } from "@/components/site/ServicesSection";
 import { StatsSection }    from "@/components/site/StatsSection";
 import { StorySection }    from "@/components/site/StorySection";
-import { getMenu, getPageWithImage, getPostBySlug, getPostsByCategory, stripHtml } from "@/lib/wordpress";
+import { TeamSection }     from "@/components/site/TeamSection";
+import { getMenu, getPageWithImage, getPostBySlug, getPostsByCategory, getStaff, stripHtml } from "@/lib/wordpress";
 
-const WP_UPLOADS = "http://localhost/Motrenko/wp-content/uploads";
+const WP_UPLOADS = process.env.NEXT_PUBLIC_WP_UPLOADS ?? "http://localhost/Motrenko/wp-content/uploads";
 
 export default async function Home() {
-  const [menuItems, newsPosts, opstiPodaci, bebPost] = await Promise.all([
+  const [menuItems, newsPosts, opstiPodaci, bebPost, staff] = await Promise.all([
     getMenu("primary").catch(() => []),
     getPostsByCategory(1, 4).catch(() => []),
     getPageWithImage("opsti-podaci").catch(() => null),
     getPostBySlug("centar-za-humanu-reprodukciju-proslavio-1-000-rodjenih-beba-za-deset-godina-postojanja").catch(() => null),
+    getStaff(8).catch(() => []),
   ]);
 
   const bebExcerpt = bebPost
@@ -69,6 +71,7 @@ export default async function Home() {
         <StatsSection />
         <ServicesSection items={menuItems} />
         <StorySection stories={stories} />
+        <TeamSection staff={staff} />
         <NewsSection posts={newsPosts} />
         <CtaBanner />
       </main>

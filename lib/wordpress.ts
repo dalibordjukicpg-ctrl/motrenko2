@@ -141,6 +141,16 @@ export async function getPostsByCategory(
   perPage = 4
 ): Promise<WPPost[]> {
   return wpFetch<WPPost[]>(
-    `/posts?categories=${categoryId}&per_page=${perPage}&_fields=id,slug,title,excerpt,date&orderby=date&order=desc`
+    `/posts?categories=${categoryId}&categories_exclude=152&per_page=${perPage}&_fields=id,slug,title,excerpt,date&orderby=date&order=desc`
+  );
+}
+
+/** Fetch staff posts (category 152 = Osoblje). */
+export async function getStaff(perPage = 20): Promise<(WPPost & {
+  content: { rendered: string };
+  _embedded?: { "wp:featuredmedia"?: { source_url: string }[] };
+})[]> {
+  return wpFetch(
+    `/posts?categories=152&per_page=${perPage}&_embed=1&orderby=menu_order&order=asc&_fields=id,slug,title,excerpt,content,date,_embedded`
   );
 }

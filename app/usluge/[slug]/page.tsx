@@ -1,11 +1,24 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { FadeIn } from "@/components/site/FadeIn";
+import { pageMetadata } from "@/lib/seo";
 import { decodeTitle, getMenu, slugify, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const items = await getMenu("primary").catch(() => []);
+  const cat = items.find((i) => i.parent === 0 && slugify(i.title) === slug);
+  if (!cat) return { title: "Usluga nije pronađena" };
+  return pageMetadata({
+    title: decodeTitle(cat.title),
+    description: `Pregled usluga: ${decodeTitle(cat.title)} u Centru za humanu reprodukciju u Budvi.`,
+    path: `/usluge/${slug}`,
+  });
+}
 
 export default async function UslugePage({ params }: Props) {
   const { slug } = await params;

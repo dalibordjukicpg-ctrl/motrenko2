@@ -2,7 +2,7 @@ import { FadeIn } from "@/components/site/FadeIn";
 
 export function CtaBanner() {
   return (
-    <section id="book" className="bg-zinc-950 py-16 lg:py-24">
+    <section id="book" className="bg-[#1a1208] py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-16">
         <FadeIn className="flex flex-col items-start gap-12 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -21,7 +21,7 @@ export function CtaBanner() {
 
           <div className="flex shrink-0 flex-col gap-4 sm:flex-row">
             <a
-              href="tel:+38200000000"
+              href="tel:+38233402432"
               className="inline-flex h-12 items-center bg-[#f37021] px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#d9601a]"
             >
               Zakaži pregled
@@ -39,10 +39,11 @@ export function CtaBanner() {
         <div className="mt-10 h-px bg-white/8" />
 
         {/* info row */}
-        <FadeIn delay={200} className="mt-6 flex flex-wrap gap-8 text-[11px] font-medium uppercase tracking-[0.2em] text-white/30">
-          <span>Pon – Pet &nbsp;07:00 – 20:00</span>
-          <span>Subota &nbsp;08:00 – 14:00</span>
-          <span>+387 00 000 000</span>
+        <FadeIn delay={200} className="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-[11px] font-medium uppercase tracking-[0.2em] text-white/40">
+          <span>Pon – Pet &nbsp;08:00 – 20:00</span>
+          <span>Subota – Nedjelja &nbsp;Zatvoreno</span>
+          <a href="tel:+38233402432" className="transition-colors hover:text-white">033 402 432</a>
+          <a href="tel:+38267052052" className="transition-colors hover:text-white">067 052 052</a>
         </FadeIn>
       </div>
     </section>
