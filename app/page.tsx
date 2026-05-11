@@ -6,7 +6,7 @@ import { ServicesSection } from "@/components/site/ServicesSection";
 import { StatsSection }    from "@/components/site/StatsSection";
 import { StorySection }    from "@/components/site/StorySection";
 import { TeamSection }     from "@/components/site/TeamSection";
-import { getMenu, getPageWithImage, getPostBySlug, getPostsByCategory, getStaff, stripHtml } from "@/lib/wordpress";
+import { getMenu, getPageWithImage, getPostBySlug, getPostsByCategory, getStaff, rewriteImgUrl, stripHtml } from "@/lib/wordpress";
 
 const WP_UPLOADS = process.env.NEXT_PUBLIC_WP_UPLOADS ?? "http://localhost/Motrenko/wp-content/uploads";
 
@@ -30,7 +30,7 @@ export default async function Home() {
       body: opstiPodaci?.excerpt ?? "Osnovan od strane tima vodećih specijalista reproduktivne medicine, naš centar je referentna tačka u regionu.",
       cta: "O nama",
       ctaHref: "/stranica/opsti-podaci",
-      image: `${WP_UPLOADS}/2025/09/DUS_6996c-scaled.jpg`,
+      image: rewriteImgUrl(`${WP_UPLOADS}/2025/09/DUS_6996c-scaled.jpg`),
       reverse: false,
     },
     {
@@ -39,7 +39,7 @@ export default async function Home() {
       body: "Centar se nalazi u objektu opremljenom najsavremenijom medicinskom tehnologijom prema EU standardima. Idealno smješten i osmišljen tako da svaka posjeta bude što ugodnija.",
       cta: "Pogledajte prostor",
       ctaHref: "#",
-      image: `${WP_UPLOADS}/2025/07/centar-za-humanu-reprodukciju-budva-naslovna-humanreproduction.jpg`,
+      image: rewriteImgUrl(`${WP_UPLOADS}/2025/07/centar-za-humanu-reprodukciju-budva-naslovna-humanreproduction.jpg`),
       reverse: true,
     },
     {
@@ -48,7 +48,7 @@ export default async function Home() {
       body: "Revolucionarni naučni napredak koji ženama pruža kontrolu nad reproduktivnom budućnošću. Naš laboratorij primjenjuje najnaprednije protokole krioprezervacije dostupne danas.",
       cta: "Saznajte više",
       ctaHref: "/stranica/krioprezervacija-embriona-zamrzavanje-embriona-vitrifikacija-embriona",
-      image: `${WP_UPLOADS}/2025/05/DAN-3-3.jpg`,
+      image: rewriteImgUrl(`${WP_UPLOADS}/2025/05/DAN-3-3.jpg`),
       reverse: false,
     },
     {
@@ -57,7 +57,7 @@ export default async function Home() {
       body: bebExcerpt,
       cta: "Pročitajte priču",
       ctaHref: "/novosti/centar-za-humanu-reprodukciju-proslavio-1-000-rodjenih-beba-za-deset-godina-postojanja",
-      image: `${WP_UPLOADS}/2025/07/centar-za-humanu-reprodukciju-budva-1000-beba-humanreproduction.jpg`,
+      image: rewriteImgUrl(`${WP_UPLOADS}/2025/07/centar-za-humanu-reprodukciju-budva-1000-beba-humanreproduction.jpg`),
       reverse: true,
     },
   ];

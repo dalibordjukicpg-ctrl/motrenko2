@@ -8,7 +8,13 @@ const WP_PUBLIC_BASE =
 
 export function rewriteImgUrl(url: string): string {
   if (!url) return url;
-  return url.replace(/https?:\/\/localhost\/Motrenko/g, WP_PUBLIC_BASE);
+  // Replace localhost with public WP base first
+  const rewritten = url.replace(/https?:\/\/localhost\/Motrenko/g, WP_PUBLIC_BASE);
+  // Route through /api/img proxy to bypass ngrok interstitial in browsers
+  if (rewritten.includes("ngrok-free.dev") || rewritten.includes("ngrok.io")) {
+    return `/api/img?url=${encodeURIComponent(rewritten)}`;
+  }
+  return rewritten;
 }
 
 async function wpFetch<T>(path: string): Promise<T> {
