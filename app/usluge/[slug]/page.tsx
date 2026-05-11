@@ -1,4 +1,5 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
+import { PageHero } from "@/components/site/PageHero";
 import { FadeIn } from "@/components/site/FadeIn";
 import { pageMetadata } from "@/lib/seo";
 import { decodeTitle, getMenu, slugify, stripHtml } from "@/lib/wordpress";
@@ -32,38 +33,28 @@ export default async function UslugePage({ params }: Props) {
 
   return (
     <>
-      <main className="min-h-screen" style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}>
-
-        {/* ── Hero header ── */}
-        <div
-          className="relative pb-16 pt-36"
-          style={{
-            backgroundImage: "url('/clinic-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-zinc-950/75" />
-          <div className="relative mx-auto max-w-7xl px-6 lg:px-16">
-            <Link
-              href="/#services"
-              className="mb-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-[#f37021] hover:underline"
-            >
-              ← Naše usluge
-            </Link>
-            <h1
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-              className="text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1.05] tracking-tight text-white"
-            >
-              {decodeTitle(category.title)}
-            </h1>
-            <div className="mt-6 h-0.5 w-16 bg-[#f37021]" />
-          </div>
-        </div>
-
+      <main
+        className="min-h-screen w-full min-w-0 overflow-x-hidden"
+        style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}
+      >
+        <PageHero>
+          <Link
+            href="/#services"
+            className="mb-3 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-[#f37021] hover:underline sm:mb-4"
+          >
+            ← Naše usluge
+          </Link>
+          <h1
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+            className="text-[clamp(1.85rem,6.5vw,5.5rem)] font-light leading-[1.08] tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] sm:leading-[1.05]"
+          >
+            {decodeTitle(category.title)}
+          </h1>
+          <div className="mt-5 h-0.5 w-14 bg-[#f37021] sm:mt-6 sm:w-16" />
+        </PageHero>
 
         {/* ── Children grid ── */}
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-16">
+        <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-16">
           {children.length === 0 ? (
             <p className="text-zinc-400">Nema dostupnih podstranica.</p>
           ) : (

@@ -74,25 +74,27 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100svh] min-h-[480px] overflow-hidden bg-black sm:min-h-[560px] md:min-h-[640px]"
+      className="relative min-h-[430px] overflow-hidden bg-black max-md:h-[min(82svh,600px)] md:h-[100svh] md:min-h-[560px] lg:min-h-[640px]"
     >
-      {/* ── Video background ── */}
+      {/* ── Video background — na mobilnom uokviren, manji vizuelni «otisak» ── */}
       <div
         ref={bgRef}
-        className="absolute inset-0 max-md:top-0 max-md:bottom-0 -top-[6%] -bottom-[6%] md:-top-[8%] md:-bottom-[8%]"
+        className="absolute inset-0 -top-[6%] -bottom-[6%] md:-top-[8%] md:-bottom-[8%]"
         style={{ transform: "translateY(var(--py, 0%))" }}
         aria-hidden
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          poster="/hero-bg.png"
-          className="absolute inset-0 h-full w-full object-cover object-[center_30%] md:object-center"
-        >
-          <source src="/video.mp4" type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 max-md:inset-x-3.5 max-md:top-[4.75rem] max-md:bottom-[12%] max-md:overflow-hidden max-md:rounded-2xl md:inset-0">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            playsInline
+            poster="/hero-bg.png"
+            className="h-full w-full object-cover object-[center_32%] max-md:scale-[1.06] md:scale-100 md:object-center"
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+        </div>
       </div>
 
       {/* ── Overlays ── */}
@@ -108,8 +110,8 @@ export function HeroSection() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-5 pb-8 pt-24 sm:px-14 sm:pb-0 sm:pt-0 md:px-24 md:pt-0">
-        <div className="max-w-2xl">
+      <div className="relative z-10 flex h-full flex-col justify-center px-5 pb-10 pt-24 max-md:pb-12 sm:px-14 md:px-24 md:pb-0 md:pt-0">
+        <div className="max-w-2xl max-md:-translate-y-2 sm:translate-y-0">
 
           {/* eyebrow */}
           <p
@@ -148,31 +150,31 @@ export function HeroSection() {
             {slide.sub}
           </p>
 
-          {/* CTA */}
+          {/* CTA — mobilno: ista visina, druga kao sekundarni outline */}
           <div
             style={{
               opacity:    leaving ? 0 : 1,
               transition: "opacity 0.5s ease 0.15s",
             }}
-            className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
+            className="mt-7 flex flex-row flex-wrap items-center gap-2.5 sm:mt-10 sm:gap-4"
           >
             <a
               href="#book"
-              className="inline-flex h-12 items-center bg-[#f37021] px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#d9601a]"
+              className="inline-flex h-11 w-fit max-w-full shrink-0 items-center justify-center rounded-sm bg-[#f37021] px-6 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-colors hover:bg-[#d9601a] sm:h-12 sm:px-8 sm:text-[11px] sm:tracking-[0.25em]"
             >
               Zakaži pregled
             </a>
             <a
               href="#services"
-              className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/55 transition-colors hover:text-white"
+              className="inline-flex h-11 w-fit items-center justify-center rounded-sm border border-white/45 bg-white/5 px-5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-[2px] transition-colors hover:border-white/70 hover:bg-white/10 hover:text-white sm:h-12 sm:px-6 sm:text-[11px] sm:tracking-[0.25em]"
             >
-              Naše usluge →
+              Naše usluge <span className="ml-1.5 inline-block translate-y-px">→</span>
             </a>
           </div>
         </div>
 
         {/* Slide dots */}
-        <div className="absolute bottom-6 left-5 flex items-center gap-3 sm:bottom-10 sm:left-14 lg:left-24">
+        <div className="absolute bottom-4 left-5 flex items-center gap-3 max-md:left-1/2 max-md:-translate-x-1/2 sm:bottom-10 sm:left-14 sm:translate-x-0 lg:left-24">
           {SLIDES.map((_, idx) => (
             <button
               key={idx}

@@ -43,16 +43,45 @@ export function rewriteImgUrl(url: string): string {
   return u;
 }
 
-/** Zamijeni src u WordPress HTML-u (stranice, članci) za ispravne slike na Vercelu. */
+function rewriteSrcsetAttr(srcset: string): string {
+  return srcset
+    .split(",")
+    .map((part) => {
+      const t = part.trim();
+      if (!t) return t;
+      const sp = t.lastIndexOf(" ");
+      const url = sp === -1 ? t : t.slice(0, sp);
+      const desc = sp === -1 ? "" : t.slice(sp + 1);
+      if (!/uploads|Motrenko|wp-content/i.test(url)) return t;
+      const rw = rewriteImgUrl(url);
+      return desc ? `${rw} ${desc}` : rw;
+    })
+    .join(", ");
+}
+
+/** Zamijeni src / srcset / data-src u WordPress HTML-u (Vercel + ngrok). */
 export function rewriteContentHtml(html: string): string {
   if (!html) return html;
-  return html.replace(
+  let out = html.replace(
     /\bsrc\s*=\s*(["'])([^"']+)\1/gi,
     (full, quote: string, src: string) => {
-      if (!src.includes("uploads") && !src.includes("Motrenko")) return full;
+      if (!/uploads|Motrenko|wp-content/i.test(src)) return full;
       return `src=${quote}${rewriteImgUrl(src)}${quote}`;
     }
   );
+  out = out.replace(
+    /\bsrcset\s*=\s*(["'])([^"']+)\1/gi,
+    (full, quote: string, srcset: string) =>
+      `srcset=${quote}${rewriteSrcsetAttr(srcset)}${quote}`
+  );
+  out = out.replace(
+    /\bdata-src\s*=\s*(["'])([^"']+)\1/gi,
+    (full, quote: string, src: string) => {
+      if (!/uploads|Motrenko|wp-content/i.test(src)) return full;
+      return `data-src=${quote}${rewriteImgUrl(src)}${quote}`;
+    }
+  );
+  return out;
 }
 
 async function wpFetch<T>(path: string): Promise<T> {

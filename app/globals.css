@@ -251,3 +251,115 @@ section, footer, header, main {
 
 /* Prazni paragrafi koje WP generiše */
 .wp-content p:empty { display: none; }
+
+/* ─── Mobilni: Gutenberg (polovični banneri, kolone) + čitljiviji tekst ─── */
+@media (max-width: 767px) {
+  .wp-content--article {
+    width: 100%;
+    max-width: 100%;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .wp-content--article p {
+    font-size: 1.02rem;
+    line-height: 1.82;
+    margin-bottom: 1.35rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .wp-content--article > p:first-of-type {
+    font-size: 1.06rem;
+    line-height: 1.82;
+  }
+
+  .wp-content--article h2 {
+    font-size: 1.45rem;
+    margin-top: 2.25rem;
+    margin-bottom: 0.85rem;
+    padding-top: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .wp-content--article h3 {
+    font-size: 1.12rem;
+    margin-top: 1.5rem;
+    line-height: 1.25;
+  }
+
+  .wp-content--article h1 {
+    font-size: 1.65rem;
+  }
+
+  /* Kolone / media+tekst — uvek jedna kolona, puna širina */
+  .wp-content .wp-block-columns {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 1.25rem !important;
+  }
+
+  .wp-content .wp-block-column {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .wp-content .wp-block-media-text {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .wp-content .wp-block-media-text .wp-block-media-text__media {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .wp-content .wp-block-media-text .wp-block-media-text__content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .wp-content .wp-block-group,
+  .wp-content .wp-block-cover,
+  .wp-content .wp-block-image {
+    max-width: 100% !important;
+  }
+
+  .wp-content .alignleft,
+  .wp-content .alignright,
+  .wp-content .aligncenter {
+    float: none !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .wp-content figure {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .wp-content img,
+  .wp-content .wp-block-image img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block;
+  }
+
+  .wp-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.82rem;
+  }
+}

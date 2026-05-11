@@ -1,4 +1,5 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
+import { PageHero } from "@/components/site/PageHero";
 import { pageMetadata } from "@/lib/seo";
 import { decodeTitle, getStaff, rewriteContentHtml, rewriteImgUrl, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
@@ -34,39 +35,28 @@ export default async function TimMemberPage({ params }: Props) {
   return (
     <>
       <main
-        className="min-h-screen"
+        className="min-h-screen w-full min-w-0 overflow-x-hidden"
         style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}
       >
-        {/* ── Hero header ── */}
-        <div
-          className="relative pb-16 pt-36"
-          style={{
-            backgroundImage: "url('/clinic-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-zinc-950/75" />
-          <div className="relative mx-auto max-w-5xl px-6 lg:px-16">
-            <Link
-              href="/#team"
-              className="mb-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-[#f37021] hover:underline"
-            >
-              ← Naš tim
-            </Link>
-            <h1
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-              className="text-[clamp(2.2rem,5vw,4.5rem)] font-light leading-[1.05] tracking-tight text-white"
-            >
-              {name}
-            </h1>
-            <div className="mt-6 h-0.5 w-16 bg-[#f37021]" />
-          </div>
-        </div>
+        <PageHero max="5xl">
+          <Link
+            href="/#team"
+            className="mb-3 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] text-[#f37021] hover:underline sm:mb-4"
+          >
+            ← Naš tim
+          </Link>
+          <h1
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+            className="text-[clamp(1.85rem,6.5vw,4.5rem)] font-light leading-[1.08] tracking-tight text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] sm:leading-[1.05]"
+          >
+            {name}
+          </h1>
+          <div className="mt-5 h-0.5 w-14 bg-[#f37021] sm:mt-6 sm:w-16" />
+        </PageHero>
 
         {/* ── Content ── */}
-        <div className="mx-auto max-w-5xl px-6 py-16 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-[300px_1fr]">
+        <div className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-16">
+          <div className="grid min-w-0 gap-10 lg:grid-cols-[280px_1fr] lg:gap-12">
             {img && (
               <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm shadow-sm">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -78,7 +68,7 @@ export default async function TimMemberPage({ params }: Props) {
               </div>
             )}
             <div
-              className="wp-content"
+              className="wp-content wp-content--article min-w-0"
               dangerouslySetInnerHTML={{ __html: rewriteContentHtml(member.content.rendered) }}
             />
           </div>
