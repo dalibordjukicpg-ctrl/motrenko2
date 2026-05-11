@@ -1,5 +1,5 @@
 import { FadeIn } from "@/components/site/FadeIn";
-import { decodeTitle, slugify, stripHtml, type WPMenuItem } from "@/lib/wordpress";
+import { decodeTitle, slugify, sortMenuOrder, stripHtml, type WPMenuItem } from "@/lib/wordpress";
 import { Activity, Baby, FlaskConical, Heart, Scan, Stethoscope } from "lucide-react";
 import Link from "next/link";
 
@@ -18,11 +18,13 @@ export function ServicesSection({ items }: Props) {
   const allItems = items;
 
   // Top-level kategorije (isključiti O nama i Kontakt)
-  const categories = allItems.filter(
-    (item) =>
-      item.parent === 0 &&
-      !["kontakt"].includes(item.slug) &&
-      !slugify(item.title).startsWith("o-nama")
+  const categories = sortMenuOrder(
+    allItems.filter(
+      (item) =>
+        item.parent === 0 &&
+        !["kontakt"].includes(item.slug) &&
+        !slugify(item.title).startsWith("o-nama")
+    )
   );
 
   return (

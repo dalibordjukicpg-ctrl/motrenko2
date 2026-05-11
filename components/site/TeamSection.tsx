@@ -1,5 +1,5 @@
 import { FadeIn } from "@/components/site/FadeIn";
-import { decodeTitle, type WPPost } from "@/lib/wordpress";
+import { decodeTitle, rewriteImgUrl, type WPPost } from "@/lib/wordpress";
 import Link from "next/link";
 
 type StaffPost = WPPost & {
@@ -10,7 +10,8 @@ type StaffPost = WPPost & {
 type Props = { staff: StaffPost[] };
 
 function getImage(s: StaffPost): string | null {
-  return s._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? null;
+  const raw = s._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  return raw ? rewriteImgUrl(raw) : null;
 }
 
 export function TeamSection({ staff }: Props) {

@@ -51,16 +51,21 @@ export function HeroSection() {
     return () => video.removeEventListener("ended", onEnded);
   }, []);
 
-  /* parallax */
+  /* parallax — samo na md+ (manje titranja na mobilnom) */
   useEffect(() => {
     const onScroll = () => {
       if (!bgRef.current || !containerRef.current) return;
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        bgRef.current.style.setProperty("--py", "0%");
+        return;
+      }
       const rect = containerRef.current.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
       const ratio = -rect.top / window.innerHeight;
       bgRef.current.style.setProperty("--py", `${ratio * 12}%`);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -69,12 +74,12 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen min-h-[640px] overflow-hidden bg-black"
+      className="relative h-[100svh] min-h-[480px] overflow-hidden bg-black sm:min-h-[560px] md:min-h-[640px]"
     >
       {/* ── Video background ── */}
       <div
         ref={bgRef}
-        className="absolute inset-0 -top-[8%] -bottom-[8%]"
+        className="absolute inset-0 max-md:top-0 max-md:bottom-0 -top-[6%] -bottom-[6%] md:-top-[8%] md:-bottom-[8%]"
         style={{ transform: "translateY(var(--py, 0%))" }}
         aria-hidden
       >
@@ -84,7 +89,7 @@ export function HeroSection() {
           muted
           playsInline
           poster="/hero-bg.png"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-[center_30%] md:object-center"
         >
           <source src="/video.mp4" type="video/mp4" />
         </video>
@@ -103,7 +108,7 @@ export function HeroSection() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex h-full flex-col justify-center px-6 sm:px-14 lg:px-24">
+      <div className="relative z-10 flex h-full flex-col justify-center px-5 pb-8 pt-24 sm:px-14 sm:pb-0 sm:pt-0 md:px-24 md:pt-0">
         <div className="max-w-2xl">
 
           {/* eyebrow */}
@@ -126,7 +131,7 @@ export function HeroSection() {
               transition: "opacity 0.6s ease 0.05s, transform 0.6s ease 0.05s",
               fontFamily: "var(--font-playfair), Georgia, serif",
             }}
-            className="whitespace-pre-line text-[clamp(3.5rem,8vw,7rem)] font-light leading-[1.0] tracking-tight text-white"
+            className="whitespace-pre-line text-[clamp(2.35rem,10.5vw,7rem)] font-light leading-[1.02] tracking-tight text-white md:text-[clamp(3.5rem,8vw,7rem)] md:leading-[1.0]"
           >
             {slide.heading}
           </h1>
@@ -138,7 +143,7 @@ export function HeroSection() {
               transform:  leaving ? "translateY(12px)" : "translateY(0)",
               transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
             }}
-            className="mt-6 text-base font-light text-white/60"
+            className="mt-4 max-w-[22rem] text-sm font-light leading-relaxed text-white/60 sm:mt-6 sm:max-w-none sm:text-base"
           >
             {slide.sub}
           </p>
@@ -149,7 +154,7 @@ export function HeroSection() {
               opacity:    leaving ? 0 : 1,
               transition: "opacity 0.5s ease 0.15s",
             }}
-            className="mt-10 flex items-center gap-5"
+            className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
           >
             <a
               href="#book"
@@ -167,7 +172,7 @@ export function HeroSection() {
         </div>
 
         {/* Slide dots */}
-        <div className="absolute bottom-10 left-6 flex items-center gap-3 sm:left-14 lg:left-24">
+        <div className="absolute bottom-6 left-5 flex items-center gap-3 sm:bottom-10 sm:left-14 lg:left-24">
           {SLIDES.map((_, idx) => (
             <button
               key={idx}

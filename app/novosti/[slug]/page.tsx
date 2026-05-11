@@ -1,6 +1,6 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { JsonLd, articleJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
-import { decodeTitle, getPostBySlug, stripHtml } from "@/lib/wordpress";
+import { decodeTitle, getPostBySlug, rewriteContentHtml, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -73,7 +73,7 @@ export default async function NovostPage({ params }: Props) {
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-16">
           <div
             className="wp-content"
-            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            dangerouslySetInnerHTML={{ __html: rewriteContentHtml(post.content.rendered) }}
           />
 
           <div className="mt-16 border-t border-zinc-100 pt-8">

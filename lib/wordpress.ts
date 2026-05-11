@@ -6,15 +6,53 @@ const WP_PUBLIC_BASE =
   process.env.NEXT_PUBLIC_WP_BASE?.replace("/wp-json", "") ??
   "http://localhost/Motrenko";
 
+const WP_ORIGIN = WP_PUBLIC_BASE.replace(/\/$/, "");
+
+/** Sort nav items in WordPress menu order (same as u adminu). */
+export function sortMenuOrder(items: WPMenuItem[]): WPMenuItem[] {
+  return [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
+
+/**
+ * Prilagodi img src za pregled: ngrok/localhost učitavaju se preko /api/img (bez interstitiala).
+ */
 export function rewriteImgUrl(url: string): string {
   if (!url) return url;
-  // Replace localhost with public WP base first
-  const rewritten = url.replace(/https?:\/\/localhost\/Motrenko/g, WP_PUBLIC_BASE);
-  // Route through /api/img proxy to bypass ngrok interstitial in browsers
-  if (rewritten.includes("ngrok-free.dev") || rewritten.includes("ngrok.io")) {
-    return `/api/img?url=${encodeURIComponent(rewritten)}`;
+  let u = url.trim();
+  if (u.startsWith("/Motrenko/wp-content/uploads/")) {
+    u = `${WP_ORIGIN}${u}`;
+  } else if (u.startsWith("/wp-content/uploads/")) {
+    u = `${WP_ORIGIN}/Motrenko${u}`;
   }
-  return rewritten;
+  u = u
+    .replace(/https?:\/\/localhost\/Motrenko/g, WP_ORIGIN)
+    .replace(/https?:\/\/127\.0\.0\.1\/Motrenko/g, WP_ORIGIN);
+
+  const uploadsPath = "/Motrenko/wp-content/uploads/";
+  if (!u.includes(uploadsPath)) return u;
+
+  const needsProxy =
+    u.includes("ngrok-free.") ||
+    u.includes("ngrok.io") ||
+    /localhost|127\.0\.0\.1/i.test(u) ||
+    /^https?:\/\/192\.168\.\d+\.\d+/i.test(u);
+
+  if (needsProxy) {
+    return `/api/img?url=${encodeURIComponent(u)}`;
+  }
+  return u;
+}
+
+/** Zamijeni src u WordPress HTML-u (stranice, članci) za ispravne slike na Vercelu. */
+export function rewriteContentHtml(html: string): string {
+  if (!html) return html;
+  return html.replace(
+    /\bsrc\s*=\s*(["'])([^"']+)\1/gi,
+    (full, quote: string, src: string) => {
+      if (!src.includes("uploads") && !src.includes("Motrenko")) return full;
+      return `src=${quote}${rewriteImgUrl(src)}${quote}`;
+    }
+  );
 }
 
 async function wpFetch<T>(path: string): Promise<T> {

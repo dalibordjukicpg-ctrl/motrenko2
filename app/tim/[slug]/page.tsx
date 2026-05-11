@@ -1,6 +1,6 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { pageMetadata } from "@/lib/seo";
-import { decodeTitle, getStaff, stripHtml } from "@/lib/wordpress";
+import { decodeTitle, getStaff, rewriteContentHtml, rewriteImgUrl, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -71,7 +71,7 @@ export default async function TimMemberPage({ params }: Props) {
               <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm shadow-sm">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img}
+                  src={rewriteImgUrl(img)}
                   alt={name}
                   className="absolute inset-0 h-full w-full object-cover object-center"
                 />
@@ -79,7 +79,7 @@ export default async function TimMemberPage({ params }: Props) {
             )}
             <div
               className="wp-content"
-              dangerouslySetInnerHTML={{ __html: member.content.rendered }}
+              dangerouslySetInnerHTML={{ __html: rewriteContentHtml(member.content.rendered) }}
             />
           </div>
 

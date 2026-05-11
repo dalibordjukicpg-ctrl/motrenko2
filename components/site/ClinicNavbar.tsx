@@ -1,14 +1,8 @@
 "use client";
 
-import { decodeTitle, slugify, type WPMenuItem } from "@/lib/wordpress";
+import { decodeTitle, slugify, sortMenuOrder, type WPMenuItem } from "@/lib/wordpress";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-function sortAlpha(items: WPMenuItem[]) {
-  return [...items].sort((a, b) =>
-    decodeTitle(a.title).localeCompare(decodeTitle(b.title), "sr")
-  );
-}
 
 type Props = { initialMenuItems?: WPMenuItem[] };
 
@@ -33,7 +27,7 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const serviceCategories = sortAlpha(
+  const serviceCategories = sortMenuOrder(
     menuItems.filter(
       (item) =>
         item.parent === 0 &&
@@ -43,7 +37,7 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
   );
   const oNama = menuItems.find((i) => i.parent === 0 && slugify(i.title).startsWith("o-nama"));
   const getChildren = (parentId: number) =>
-    sortAlpha(menuItems.filter((i) => i.parent === parentId && i.slug));
+    sortMenuOrder(menuItems.filter((i) => i.parent === parentId && i.slug));
 
   const linkCls = [
     "text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-300",
@@ -178,8 +172,8 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
 
       {/* ── Mobile drawer ── */}
       <div className={[
-        "bg-white transition-all duration-500 md:hidden",
-        mobileOpen ? "max-h-[85vh] overflow-y-auto border-t border-zinc-100" : "max-h-0 overflow-hidden",
+        "bg-white transition-[max-height] duration-500 ease-out md:hidden",
+        mobileOpen ? "max-h-[min(85vh,32rem)] overflow-y-auto overscroll-contain border-t border-zinc-100 shadow-lg" : "max-h-0 overflow-hidden",
       ].join(" ")}>
         <div className="divide-y divide-zinc-100 pb-4">
 
@@ -187,7 +181,7 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
           <div>
             <button
               onClick={() => { setUslugeExpanded((o) => !o); setExpandedCat(null); }}
-              className="flex w-full items-center justify-between px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700"
+              className="flex w-full items-center justify-between px-5 py-4 text-left text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 min-[400px]:px-6"
             >
               Usluge
               <svg className={`size-3 transition-transform ${uslugeExpanded ? "rotate-180" : ""}`}
@@ -235,26 +229,26 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
           {/* O nama */}
           {oNama ? (
             <Link href={`/usluge/${slugify(oNama.title)}`} onClick={() => setMobileOpen(false)}
-              className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+              className="block px-5 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021] min-[400px]:px-6">
               O nama
             </Link>
           ) : (
             <a href="#about" onClick={() => setMobileOpen(false)}
-              className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+              className="block px-5 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021] min-[400px]:px-6">
               O nama
             </a>
           )}
 
           <Link href="/#team" onClick={() => setMobileOpen(false)}
-            className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+            className="block px-5 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021] min-[400px]:px-6">
             Naš tim
           </Link>
           <a href="#blog" onClick={() => setMobileOpen(false)}
-            className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+            className="block px-5 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021] min-[400px]:px-6">
             Blog
           </a>
           <Link href="/kontakt" onClick={() => setMobileOpen(false)}
-            className="block px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021]">
+            className="block px-5 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 hover:text-[#f37021] min-[400px]:px-6">
             Kontakt
           </Link>
 

@@ -1,6 +1,6 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
 import { pageMetadata } from "@/lib/seo";
-import { decodeTitle, getMenu, getPageBySlug, slugify, stripHtml } from "@/lib/wordpress";
+import { decodeTitle, getMenu, getPageBySlug, rewriteContentHtml, slugify, sortMenuOrder, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -33,7 +33,9 @@ export default async function StranicaPage({ params }: Props) {
 
   // Stranice iste kategorije (sidebar)
   const siblings = parentItem
-    ? allItems.filter((i) => i.parent === parentItem.id && i.slug && i.slug !== slug)
+    ? sortMenuOrder(
+        allItems.filter((i) => i.parent === parentItem.id && i.slug && i.slug !== slug)
+      )
     : [];
 
   return (
@@ -79,7 +81,7 @@ export default async function StranicaPage({ params }: Props) {
             <div>
               <div
                 className="wp-content max-w-3xl"
-                dangerouslySetInnerHTML={{ __html: page.content.rendered }}
+                dangerouslySetInnerHTML={{ __html: rewriteContentHtml(page.content.rendered) }}
               />
 
               <div className="mt-16 border-t border-zinc-100 pt-8">
