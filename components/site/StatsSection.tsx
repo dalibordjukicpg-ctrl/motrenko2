@@ -72,7 +72,7 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
 
 export function StatsSection() {
   return (
-    <section style={{ background: "linear-gradient(135deg,#fdf8f4 0%,#f8efe6 100%)" }}>
+    <section className="relative z-[1] -mt-px overflow-hidden rounded-t-[1.25rem] shadow-[0_-12px_40px_-12px_rgba(0,0,0,0.12)] sm:rounded-t-[1.5rem]" style={{ background: "linear-gradient(135deg,#fdf8f4 0%,#f8efe6 100%)" }}>
       <div className="mx-auto max-w-7xl border-x border-zinc-100">
         <div className="grid grid-cols-2 divide-x divide-y divide-zinc-100 lg:grid-cols-4 lg:divide-y-0">
           {STATS.map((stat, i) => (
