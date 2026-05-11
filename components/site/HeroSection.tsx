@@ -45,7 +45,9 @@ export function HeroSection() {
     if (!video) return;
     const onEnded = () => {
       video.style.transition = "transform 8s ease-out";
-      video.style.transform  = "scale(1.08)";
+      const mobile = window.matchMedia("(max-width: 767px)").matches;
+      // Na mobitelu već koristimo scale>1 za pun kadar; nastavak zumiranja od te baze
+      video.style.transform = mobile ? "translateZ(0) scale(1.22)" : "scale(1.08)";
     };
     video.addEventListener("ended", onEnded);
     return () => video.removeEventListener("ended", onEnded);
@@ -74,15 +76,20 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[380px] overflow-hidden bg-black max-md:h-[min(68svh,520px)] max-md:min-h-[380px] md:h-[100svh] md:min-h-[560px] lg:min-h-[640px]"
+      className="relative min-h-[380px] overflow-hidden bg-zinc-950 max-md:h-[min(68svh,520px)] max-md:min-h-[380px] md:h-[100svh] md:min-h-[560px] lg:min-h-[640px]"
     >
-      {/* ── Video — pun širinski kadar, bez dodatnog zumiranja na mob (čitljivije) ── */}
+      {/* ── Video — na mob: poster ispod + blagi scale da nema crnog «okvira» oko kadra ── */}
       <div
         ref={bgRef}
-        className="absolute inset-0 -top-[6%] -bottom-[6%] md:-top-[8%] md:-bottom-[8%]"
+        className="absolute inset-x-0 top-0 bottom-0 md:-top-[6%] md:-bottom-[6%]"
         style={{ transform: "translateY(var(--py, 0%))" }}
         aria-hidden
       >
+        {/* Isti kao video poster — popunjava prostor prije učitavanja ili uz subpiksel rupe */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
+          style={{ backgroundImage: "url('/hero-bg.png')" }}
+        />
         <div className="absolute inset-0 overflow-hidden">
           <video
             ref={videoRef}
@@ -90,7 +97,7 @@ export function HeroSection() {
             muted
             playsInline
             poster="/hero-bg.png"
-            className="h-full w-full object-cover object-[center_30%] will-change-transform [transform:translateZ(0)] md:object-center"
+            className="h-full w-full object-cover object-[center_30%] will-change-transform [transform:translateZ(0)] max-md:min-h-[105%] max-md:min-w-[105%] max-md:scale-110 max-md:object-cover md:min-h-0 md:min-w-0 md:scale-100 md:object-center"
           >
             <source src="/video.mp4" type="video/mp4" />
           </video>
