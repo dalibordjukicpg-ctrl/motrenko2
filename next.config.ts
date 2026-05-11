@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/Motrenko/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.ngrok-free.app",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.ngrok-free.dev",
+        pathname: "/**",
+      },
     ],
   },
 };

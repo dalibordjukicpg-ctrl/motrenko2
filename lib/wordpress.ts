@@ -21,7 +21,16 @@ async function wpFetch<T>(path: string): Promise<T> {
     next: { revalidate: 60 },
   });
   if (!res.ok) throw new Error(`WP API ${res.status}: ${path}`);
-  return res.json();
+  const text = await res.text();
+  // Globally rewrite localhost image URLs to the public base (ngrok/production)
+  const rewritten = text.replace(
+    /http:\\?\/\\?\/localhost\\?\/Motrenko/g,
+    WP_PUBLIC_BASE.replace(/\//g, "\\/")
+  ).replace(
+    /http:\/\/localhost\/Motrenko/g,
+    WP_PUBLIC_BASE
+  );
+  return JSON.parse(rewritten) as T;
 }
 
 export type WPPage = {
