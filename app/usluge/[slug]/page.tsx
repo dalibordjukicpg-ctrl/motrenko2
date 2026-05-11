@@ -1,5 +1,4 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { FadeIn } from "@/components/site/FadeIn";
 import { pageMetadata } from "@/lib/seo";
 import { decodeTitle, getMenu, slugify, stripHtml } from "@/lib/wordpress";
@@ -33,7 +32,6 @@ export default async function UslugePage({ params }: Props) {
 
   return (
     <>
-      <ClinicNavbar />
       <main className="min-h-screen" style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}>
 
         {/* ── Hero header ── */}

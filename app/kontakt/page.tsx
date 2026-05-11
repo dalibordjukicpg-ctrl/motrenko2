@@ -1,5 +1,4 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { ContactForm } from "@/components/site/ContactForm";
 import { pageMetadata } from "@/lib/seo";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -14,7 +13,6 @@ export const metadata = pageMetadata({
 export default function KontaktPage() {
   return (
     <>
-      <ClinicNavbar />
       <main
         className="min-h-screen"
         style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}

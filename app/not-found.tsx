@@ -1,11 +1,9 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import Link from "next/link";
 
 export default function NotFound() {
   return (
     <>
-      <ClinicNavbar />
       <main
         className="flex min-h-screen items-center justify-center"
         style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}

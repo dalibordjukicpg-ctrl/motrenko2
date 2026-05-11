@@ -1,5 +1,4 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -12,7 +11,6 @@ export const metadata = pageMetadata({
 export default function PolitikaPage() {
   return (
     <>
-      <ClinicNavbar />
       <main
         className="min-h-screen"
         style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}

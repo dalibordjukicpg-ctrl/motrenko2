@@ -1,5 +1,4 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { pageMetadata } from "@/lib/seo";
 import { decodeTitle, getStaff, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
@@ -34,7 +33,6 @@ export default async function TimMemberPage({ params }: Props) {
 
   return (
     <>
-      <ClinicNavbar />
       <main
         className="min-h-screen"
         style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}

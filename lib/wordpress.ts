@@ -1,9 +1,23 @@
 const BASE =
   process.env.WORDPRESS_API_URL ?? "http://localhost/Motrenko/wp-json/wp/v2";
 
+// Rewrite localhost image URLs to the public WP base (ngrok/production)
+const WP_PUBLIC_BASE =
+  process.env.NEXT_PUBLIC_WP_BASE?.replace("/wp-json", "") ??
+  "http://localhost/Motrenko";
+
+export function rewriteImgUrl(url: string): string {
+  if (!url) return url;
+  return url.replace(/https?:\/\/localhost\/Motrenko/g, WP_PUBLIC_BASE);
+}
+
 async function wpFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+      // Bypass ngrok browser-warning interstitial
+      "ngrok-skip-browser-warning": "1",
+    },
     next: { revalidate: 60 },
   });
   if (!res.ok) throw new Error(`WP API ${res.status}: ${path}`);
@@ -124,14 +138,14 @@ export async function getPageWithImage(slug: string): Promise<{
   const page = pages?.[0];
   if (!page) return null;
 
-  const imageUrl =
+  const rawUrl =
     page._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? null;
 
   return {
     title: decodeTitle(page.title.rendered),
     excerpt: stripHtml(page.excerpt.rendered),
     content: page.content.rendered,
-    imageUrl,
+    imageUrl: rawUrl ? rewriteImgUrl(rawUrl) : null,
   };
 }
 

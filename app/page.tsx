@@ -1,5 +1,4 @@
 import { ClinicFooter }    from "@/components/site/ClinicFooter";
-import { ClinicNavbar }    from "@/components/site/ClinicNavbar";
 import { CtaBanner }       from "@/components/site/CtaBanner";
 import { HeroSection }     from "@/components/site/HeroSection";
 import { NewsSection }     from "@/components/site/NewsSection";
@@ -65,7 +64,6 @@ export default async function Home() {
 
   return (
     <>
-      <ClinicNavbar />
       <main>
         <HeroSection />
         <StatsSection />

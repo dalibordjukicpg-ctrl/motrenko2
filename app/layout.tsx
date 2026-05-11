@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, Playfair_Display } from "next/font/google";
 import { ScrollToTop } from "@/components/site/ScrollToTop";
+import { NavbarServer } from "@/components/site/NavbarServer";
 import { JsonLd, SITE_NAME, SITE_URL, clinicJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
       className={`${lora.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-zinc-900">
+        <NavbarServer />
         {children}
         <ScrollToTop />
         <JsonLd data={clinicJsonLd} />

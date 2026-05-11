@@ -1,5 +1,4 @@
 import { ClinicFooter } from "@/components/site/ClinicFooter";
-import { ClinicNavbar } from "@/components/site/ClinicNavbar";
 import { JsonLd, articleJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
 import { decodeTitle, getPostBySlug, stripHtml } from "@/lib/wordpress";
 import Link from "next/link";
@@ -43,7 +42,6 @@ export default async function NovostPage({ params }: Props) {
   return (
     <>
       <JsonLd data={articleSchema} />
-      <ClinicNavbar />
       <main className="min-h-screen" style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf4ed 100%)" }}>
 
         {/* ── Hero header ── */}

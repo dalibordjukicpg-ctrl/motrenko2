@@ -4,34 +4,27 @@ import { decodeTitle, slugify, type WPMenuItem } from "@/lib/wordpress";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const WP_BASE = process.env.NEXT_PUBLIC_WP_BASE ?? "http://localhost/Motrenko/wp-json";
-
 function sortAlpha(items: WPMenuItem[]) {
   return [...items].sort((a, b) =>
     decodeTitle(a.title).localeCompare(decodeTitle(b.title), "sr")
   );
 }
 
-export function ClinicNavbar() {
+type Props = { initialMenuItems?: WPMenuItem[] };
+
+export function ClinicNavbar({ initialMenuItems = [] }: Props) {
   const [scrolled,       setScrolled]       = useState(false);
   const [mobileOpen,     setMobileOpen]     = useState(false);
   const [uslugeOpen,     setUslugeOpen]     = useState(false);
   const [uslugeExpanded, setUslugeExpanded] = useState(false);
   const [expandedCat,    setExpandedCat]    = useState<number | null>(null);
-  const [menuItems,      setMenuItems]      = useState<WPMenuItem[]>([]);
+  const menuItems = initialMenuItems;
 
   // Hover intent — small delay so dropdown stays open when moving mouse into it
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const openDropdown  = () => { if (closeTimer.current) clearTimeout(closeTimer.current); setUslugeOpen(true); };
   const closeDropdown = () => { closeTimer.current = setTimeout(() => setUslugeOpen(false), 120); };
-
-  useEffect(() => {
-    fetch(`${WP_BASE}/custom/v1/menu?location=primary`)
-      .then((r) => r.json())
-      .then(setMenuItems)
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
