@@ -1,6 +1,11 @@
+"use client";
+
 import { FadeIn } from "@/components/site/FadeIn";
+import { useBookConsult } from "@/components/site/BookConsultProvider";
 
 export function CtaBanner() {
+  const { openBookConsult } = useBookConsult();
+
   return (
     <section id="book" className="bg-[#1a1208] py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-16">
@@ -19,16 +24,23 @@ export function CtaBanner() {
             </h2>
           </div>
 
-          <div className="flex shrink-0 flex-col gap-4 sm:flex-row">
-            <a
-              href="tel:+38233402432"
-              className="inline-flex h-12 items-center bg-[#f37021] px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#d9601a]"
+          <div className="flex w-full shrink-0 flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
+            <button
+              type="button"
+              onClick={openBookConsult}
+              className="inline-flex h-12 items-center justify-center bg-[#f37021] px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#d9601a]"
             >
               Zakaži pregled
+            </button>
+            <a
+              href="tel:+38233402432"
+              className="inline-flex h-12 items-center justify-center border border-white/25 px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white/85 transition-colors hover:border-white/45 hover:text-white"
+            >
+              Pozovite nas
             </a>
             <a
               href="#contact"
-              className="inline-flex h-12 items-center border border-white/15 px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white/60 transition-colors hover:border-white/40 hover:text-white"
+              className="inline-flex h-12 items-center justify-center border border-white/15 px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white/60 transition-colors hover:border-white/40 hover:text-white"
             >
               Kontakt forma
             </a>

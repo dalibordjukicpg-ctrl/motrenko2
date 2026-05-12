@@ -1,5 +1,6 @@
 "use client";
 
+import { useBookConsult } from "@/components/site/BookConsultProvider";
 import { decodeTitle, slugify, sortMenuOrder, type WPMenuItem } from "@/lib/wordpress";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -7,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 type Props = { initialMenuItems?: WPMenuItem[] };
 
 export function ClinicNavbar({ initialMenuItems = [] }: Props) {
+  const { openBookConsult } = useBookConsult();
   const [scrolled,       setScrolled]       = useState(false);
   const [mobileOpen,     setMobileOpen]     = useState(false);
   const [uslugeOpen,     setUslugeOpen]     = useState(false);
@@ -100,14 +102,18 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-5">
-          <a href="#book" className={[
+          <button
+            type="button"
+            onClick={openBookConsult}
+            className={[
             "hidden h-9 items-center px-6 text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 md:inline-flex",
             scrolled
               ? "bg-[#f37021] text-white hover:bg-[#d9601a]"
               : "border border-white/50 text-white hover:bg-white/10 [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]",
-          ].join(" ")}>
+          ].join(" ")}
+          >
             Zakaži pregled
-          </a>
+          </button>
 
           <button onClick={() => setMobileOpen((o) => !o)} aria-label="Toggle menu"
             className="flex flex-col items-center justify-center gap-[5px] p-1.5 md:hidden">
@@ -254,10 +260,13 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
           </Link>
 
           <div className="px-6 pt-3">
-            <a href="#book" onClick={() => setMobileOpen(false)}
-              className="flex h-10 items-center justify-center bg-[#f37021] text-[11px] font-medium uppercase tracking-[0.2em] text-white">
+            <button
+              type="button"
+              onClick={() => { setMobileOpen(false); openBookConsult(); }}
+              className="flex h-10 w-full items-center justify-center bg-[#f37021] text-[11px] font-medium uppercase tracking-[0.2em] text-white"
+            >
               Zakaži pregled
-            </a>
+            </button>
           </div>
         </div>
       </div>

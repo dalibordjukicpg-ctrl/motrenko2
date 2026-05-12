@@ -1,5 +1,6 @@
 "use client";
 
+import { useBookConsult } from "@/components/site/BookConsultProvider";
 import { useEffect, useRef, useState } from "react";
 
 const SLIDES = [
@@ -21,6 +22,7 @@ const SLIDES = [
 ];
 
 export function HeroSection() {
+  const { openBookConsult } = useBookConsult();
   const [current, setCurrent] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const bgRef        = useRef<HTMLDivElement>(null);
@@ -163,12 +165,13 @@ export function HeroSection() {
             }}
             className="mt-5 grid w-full grid-cols-2 gap-2 sm:mt-10 sm:flex sm:w-auto sm:max-w-none sm:gap-4"
           >
-            <a
-              href="#book"
+            <button
+              type="button"
+              onClick={openBookConsult}
               className="flex h-12 min-h-[48px] items-center justify-center rounded-sm bg-[#f37021] px-2 text-center text-[9px] font-semibold uppercase leading-tight tracking-[0.12em] text-white transition-colors hover:bg-[#d9601a] sm:inline-flex sm:h-12 sm:min-h-0 sm:px-8 sm:text-[11px] sm:font-medium sm:tracking-[0.25em]"
             >
               Zakaži pregled
-            </a>
+            </button>
             <a
               href="#services"
               className="flex h-12 min-h-[48px] items-center justify-center rounded-sm border border-white/55 bg-white/10 px-2 text-center text-[9px] font-semibold uppercase leading-tight tracking-[0.12em] text-white backdrop-blur-sm transition-colors hover:border-white/80 hover:bg-white/15 sm:inline-flex sm:h-12 sm:min-h-0 sm:px-6 sm:text-[11px] sm:font-medium sm:tracking-[0.22em]"
