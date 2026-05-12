@@ -25,25 +25,19 @@ export function CtaBanner() {
           </div>
 
           <div className="flex w-full shrink-0 flex-col gap-4 sm:w-auto sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={openBookConsult}
+            <a
+              href="tel:+38233402432"
               className="inline-flex h-12 items-center justify-center bg-[#f37021] px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#d9601a]"
             >
               Zakaži pregled
-            </button>
-            <a
-              href="tel:+38233402432"
-              className="inline-flex h-12 items-center justify-center border border-white/25 px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white/85 transition-colors hover:border-white/45 hover:text-white"
-            >
-              Pozovite nas
             </a>
-            <a
-              href="#contact"
+            <button
+              type="button"
+              onClick={openBookConsult}
               className="inline-flex h-12 items-center justify-center border border-white/15 px-8 text-[11px] font-medium uppercase tracking-[0.25em] text-white/60 transition-colors hover:border-white/40 hover:text-white"
             >
               Kontakt forma
-            </a>
+            </button>
           </div>
         </FadeIn>
 
