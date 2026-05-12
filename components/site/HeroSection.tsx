@@ -46,8 +46,7 @@ export function HeroSection() {
     const onEnded = () => {
       video.style.transition = "transform 8s ease-out";
       const mobile = window.matchMedia("(max-width: 767px)").matches;
-      // Na mobitelu već koristimo scale>1 za pun kadar; nastavak zumiranja od te baze
-      video.style.transform = mobile ? "translateZ(0) scale(1.22)" : "scale(1.08)";
+      video.style.transform = mobile ? "translateZ(0) scale(1.1)" : "scale(1.06)";
     };
     video.addEventListener("ended", onEnded);
     return () => video.removeEventListener("ended", onEnded);
@@ -76,7 +75,7 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[380px] overflow-hidden bg-zinc-950 max-md:h-[min(68svh,520px)] max-md:min-h-[380px] md:h-[100svh] md:min-h-[560px] lg:min-h-[640px]"
+      className="relative min-h-[380px] overflow-hidden rounded-b-3xl bg-zinc-950 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.45)] ring-1 ring-white/5 max-md:h-[min(68svh,520px)] max-md:min-h-[380px] md:h-[100svh] md:min-h-[560px] md:rounded-b-[2rem] lg:min-h-[640px]"
     >
       {/* ── Video — na mob: poster ispod + blagi scale da nema crnog «okvira» oko kadra ── */}
       <div
@@ -97,7 +96,7 @@ export function HeroSection() {
             muted
             playsInline
             poster="/hero-bg.png"
-            className="h-full w-full object-cover object-[center_30%] will-change-transform [transform:translateZ(0)] max-md:min-h-[105%] max-md:min-w-[105%] max-md:scale-110 max-md:object-cover md:min-h-0 md:min-w-0 md:scale-100 md:object-center"
+            className="h-full w-full object-cover object-[center_28%] will-change-transform [transform:translateZ(0)] max-md:min-h-full max-md:min-w-full max-md:scale-[1.03] max-md:object-cover md:min-h-0 md:min-w-0 md:scale-100 md:object-center"
           >
             <source src="/video.mp4" type="video/mp4" />
           </video>

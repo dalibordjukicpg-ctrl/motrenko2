@@ -58,7 +58,7 @@ export default async function TimMemberPage({ params }: Props) {
         <div className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-16">
           <div className="grid min-w-0 gap-10 lg:grid-cols-[280px_1fr] lg:gap-12">
             {img && (
-              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm shadow-sm">
+              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl ring-1 ring-zinc-200/80 shadow-[0_16px_48px_-20px_rgba(24,24,27,0.18)] sm:rounded-3xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={rewriteImgUrl(img)}

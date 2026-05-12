@@ -61,6 +61,7 @@ export function ClinicNavbar({ initialMenuItems = [] }: Props) {
             src="/logo-t2.png"
             alt="Human Reproduction Center Budva"
             style={{ height: "60px", width: "auto" }}
+            className="rounded-md"
           />
         </Link>
 

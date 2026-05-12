@@ -52,7 +52,7 @@ export function ClinicFooter() {
                 src="/logo-t2.png"
                 alt="Human Reproduction Center Budva"
                 style={{ height: "64px", width: "auto" }}
-                className="mb-6"
+                className="mb-6 rounded-lg"
               />
               <p className="mb-8 max-w-[280px] text-[14px] leading-[1.85] text-zinc-500">
                 Posvećeni vašem zdravlju uz najsavremeniju medicinsku njegu i

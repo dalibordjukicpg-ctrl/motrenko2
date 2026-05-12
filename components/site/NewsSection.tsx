@@ -26,24 +26,22 @@ export function NewsSection({ posts }: Props) {
                 Novosti
               </p>
               <h2
-                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                className="text-[clamp(2.2rem,4vw,4rem)] font-light leading-[1.05] tracking-tight text-zinc-950"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                className="text-[clamp(2.2rem,4vw,4rem)] font-normal leading-[1.12] tracking-tight text-zinc-950"
               >
-                Iz centra
-                <em className="not-italic text-zinc-400"> i nauke</em>
+                Iz centra i nauke
               </h2>
             </div>
           </div>
           <div className="mt-6 h-px bg-zinc-200" />
         </FadeIn>
 
-        <div className="grid sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2">
           {posts.map((post, i) => (
             <FadeIn key={post.id} delay={((i % 2) * 100) as 0 | 100 | 200 | 300 | 400 | 500}>
               <Link
                 href={`/novosti/${post.slug}`}
-                className="group flex h-full flex-col gap-3 border border-orange-100/50 p-7 transition-all hover:shadow-sm"
-                style={{ background: "linear-gradient(145deg,#ffffff 0%,#fff7f2 100%)" }}
+                className="group flex h-full flex-col gap-3 rounded-2xl border border-zinc-200/70 bg-white p-7 shadow-[0_1px_3px_rgba(24,24,27,0.06)] transition-all hover:border-zinc-300/90 hover:shadow-md"
               >
                 <time className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#f37021]">
                   {formatDate(post.date)}
@@ -54,11 +52,11 @@ export function NewsSection({ posts }: Props) {
                 >
                   {decodeTitle(post.title.rendered)}
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-400">
+                <p className="text-sm leading-relaxed text-zinc-600">
                   {stripHtml(post.excerpt.rendered).slice(0, 160).trim()}
                   {stripHtml(post.excerpt.rendered).length > 160 ? "…" : ""}
                 </p>
-                <span className="mt-auto text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-300 transition-colors group-hover:text-[#f37021]">
+                <span className="mt-auto text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 transition-colors group-hover:text-[#f37021]">
                   Pročitaj više →
                 </span>
               </Link>

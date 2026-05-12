@@ -31,14 +31,13 @@ export function TeamSection({ staff }: Props) {
                 Naš tim
               </p>
               <h2
-                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                className="text-[clamp(2.2rem,4vw,4rem)] font-light leading-[1.05] tracking-tight text-zinc-950"
+                style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+                className="text-[clamp(2.2rem,4vw,4rem)] font-normal leading-[1.12] tracking-tight text-zinc-950"
               >
-                Stručnjaci
-                <em className="not-italic text-zinc-400"> i osoblje</em>
+                Stručnjaci i osoblje
               </h2>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-zinc-400 sm:text-right">
+            <p className="max-w-xs text-sm leading-relaxed text-zinc-600 sm:text-right">
               Tim posvećenih ljekara i medicinskog osoblja koji vodi vaš put ka
               roditeljstvu.
             </p>
@@ -60,7 +59,7 @@ export function TeamSection({ staff }: Props) {
                   className="group block"
                 >
                   <div
-                    className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100"
+                    className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-zinc-100 ring-1 ring-zinc-200/80 shadow-[0_14px_40px_-16px_rgba(24,24,27,0.16)] transition-shadow duration-300 group-hover:shadow-[0_20px_48px_-18px_rgba(24,24,27,0.2)] sm:rounded-3xl"
                     style={{ background: "linear-gradient(160deg,#fff9f5 0%,#fdf2e9 100%)" }}
                   >
                     {img ? (
@@ -68,7 +67,7 @@ export function TeamSection({ staff }: Props) {
                       <img
                         src={img}
                         alt={name}
-                        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-transform duration-700 group-hover:scale-[1.04]"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-300">

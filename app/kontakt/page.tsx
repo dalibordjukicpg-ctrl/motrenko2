@@ -19,7 +19,7 @@ export default function KontaktPage() {
       >
         {/* ── Hero header ── */}
         <div
-          className="relative pb-16 pt-36"
+          className="relative overflow-hidden rounded-b-3xl pb-16 pt-36 shadow-[0_20px_50px_-28px_rgba(24,24,27,0.35)] ring-1 ring-white/5 sm:rounded-b-[2rem]"
           style={{
             backgroundImage: "url('/clinic-bg.jpg')",
             backgroundSize: "cover",

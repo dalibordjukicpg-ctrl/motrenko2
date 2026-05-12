@@ -19,7 +19,7 @@ export function PageHero({ children, max = "7xl" }: Props) {
 
   return (
     <div
-      className="relative isolate w-full min-w-0 overflow-hidden bg-zinc-900 pt-[5.5rem] pb-10 sm:pt-36 sm:pb-16"
+      className="relative isolate w-full min-w-0 overflow-hidden rounded-b-3xl bg-zinc-900 pt-[5.5rem] pb-10 shadow-[0_20px_50px_-28px_rgba(24,24,27,0.35)] ring-1 ring-white/5 sm:rounded-b-[2rem] sm:pt-36 sm:pb-16"
       style={{
         backgroundImage: "url('/clinic-bg.jpg')",
         backgroundSize: "cover",
